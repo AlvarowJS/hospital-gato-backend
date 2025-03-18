@@ -33,7 +33,6 @@ class HospitalFactory extends Factory
             'gerente_id' => Gerente::factory(),
             'condicion_id' => Condicion::factory(),
             'sede_id' => Sede::factory(),
-            'distrito_gerente_condicion_sede_id' => DistritoGerenteCondicionSede::factory(),
         ];
     }
 }

@@ -22,8 +22,16 @@ class DistritoFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'provincia_id' => Provincia::factory(),
+            'name' => $this->faker->city(),
+            'provincia_id' => Provincia::whereIn('name', [
+                'Lima',
+                'Huaral',
+                'Cañete',
+                'Barranca',
+                'Huarochirí',
+                'Canta',
+                'Yauyos'
+            ])->inRandomOrder()->first()->id ?? Provincia::factory(),
         ];
     }
 }

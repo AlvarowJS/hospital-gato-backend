@@ -21,7 +21,18 @@ class ProvinciaFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->randomElement([
+                'Lima',
+                'Barranca',
+                'Cajatambo',
+                'Canta',
+                'Cañete',
+                'Huaral',
+                'Huarochirí',
+                'Huaura',
+                'Oyón',
+                'Yauyos'
+            ]),
         ];
     }
 }
