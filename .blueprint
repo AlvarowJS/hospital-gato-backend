@@ -1,0 +1,27 @@
+created:
+    - database/factories/ProvinciaFactory.php
+    - database/factories/DistritoFactory.php
+    - database/factories/GerenteFactory.php
+    - database/factories/CondicionFactory.php
+    - database/factories/SedeFactory.php
+    - database/factories/HospitalFactory.php
+    - database/migrations/2025_03_18_052436_create_provincias_table.php
+    - database/migrations/2025_03_18_052437_create_distritos_table.php
+    - database/migrations/2025_03_18_052438_create_gerentes_table.php
+    - database/migrations/2025_03_18_052439_create_condicions_table.php
+    - database/migrations/2025_03_18_052440_create_sedes_table.php
+    - database/migrations/2025_03_18_052441_create_hospitals_table.php
+    - app/Models/Provincia.php
+    - app/Models/Distrito.php
+    - app/Models/Gerente.php
+    - app/Models/Condicion.php
+    - app/Models/Sede.php
+    - app/Models/Hospital.php
+models:
+    User: {  }
+    Provincia: { name: string, relationships: { hasMany: Distrito } }
+    Distrito: { name: string, provincia_id: id, relationships: { belongsTo: Provincia, hasMany: Hospital } }
+    Gerente: { name: string, relationships: { hasMany: Hospital } }
+    Condicion: { name: string, relationships: { hasMany: Hospital } }
+    Sede: { name: string, relationships: { hasMany: Hospital } }
+    Hospital: { age: number, name: string, date_register: date, distrito_id: id, gerente_id: id, condicion_id: id, sede_id: id, relationships: { belongsTo: 'Distrito Gerente Condicion Sede' } }

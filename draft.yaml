@@ -1,0 +1,45 @@
+models:
+  Provincia:
+    name: string
+    relationships:
+      hasMany: Distrito
+
+  Distrito:
+    name: string
+    provincia_id: id
+    relationships:
+      belongsTo: Provincia
+      hasMany: Hospital
+
+  Gerente:
+    name: string
+    relationships:
+      hasMany: Hospital
+
+  Condicion:
+    name: string
+    relationships:
+      hasMany: Hospital
+
+  Sede:
+    name: string
+    relationships:
+      hasMany: Hospital
+
+  Hospital:
+    age: number
+    name: string
+    date_register: date
+    distrito_id: id
+    gerente_id: id
+    condicion_id: id
+    sede_id: id
+    relationships:
+      belongsTo:
+        - Distrito
+        - Gerente
+        - Condicion
+        - Sede
+
+controllers:
+  # ...
