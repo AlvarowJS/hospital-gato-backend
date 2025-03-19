@@ -18,12 +18,12 @@ class Hospital extends Model
     protected $fillable = [
         'age',
         'name',
+        'area',
         'date_register',
         'distrito_id',
         'gerente_id',
         'condicion_id',
         'sede_id',
-        'distrito_gerente_condicion_sede_id',
     ];
 
     /**
@@ -33,7 +33,6 @@ class Hospital extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'date_register' => 'date',
         'distrito_id' => 'integer',
         'gerente_id' => 'integer',
         'condicion_id' => 'integer',
@@ -41,10 +40,7 @@ class Hospital extends Model
         'distrito_gerente_condicion_sede_id' => 'integer',
     ];
 
-    public function distritoGerenteCondicionSede(): BelongsTo
-    {
-        return $this->belongsTo(DistritoGerenteCondicionSede::class);
-    }
+
 
     public function distrito(): BelongsTo
     {

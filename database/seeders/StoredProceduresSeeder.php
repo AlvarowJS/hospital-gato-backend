@@ -19,6 +19,7 @@ class StoredProceduresSeeder extends Seeder
             "CREATE PROCEDURE hospital_registrar(
                 IN p_age INT,
                 IN p_name VARCHAR(255),
+                IN p_area VARCHAR(255),
                 IN p_date_register DATE,
                 IN p_distrito_id INT,
                 IN p_gerente_id INT,
@@ -28,8 +29,8 @@ class StoredProceduresSeeder extends Seeder
                 IN p_updated_at DATETIME
             )
             BEGIN
-                INSERT INTO hospitals(age, name, date_register, distrito_id, gerente_id, condicion_id, sede_id,created_at, updated_at)
-                VALUES (p_age, p_name, p_date_register, p_distrito_id, p_gerente_id, p_condicion_id, p_sede_id, p_created_at, p_updated_at);
+                INSERT INTO hospitals(age, name, area, date_register, distrito_id, gerente_id, condicion_id, sede_id,created_at, updated_at)
+                VALUES (p_age, p_name, p_area, p_date_register, p_distrito_id, p_gerente_id, p_condicion_id, p_sede_id, p_created_at, p_updated_at);
             END;",
 
             "DROP PROCEDURE IF EXISTS hospital_actualizar;",
@@ -37,6 +38,7 @@ class StoredProceduresSeeder extends Seeder
                 IN p_id INT,
                 IN p_age INT,
                 IN p_name VARCHAR(255),
+                IN p_area VARCHAR(255),
                 IN p_date_register DATE,
                 IN p_distrito_id INT,
                 IN p_gerente_id INT,
@@ -48,6 +50,7 @@ class StoredProceduresSeeder extends Seeder
                 SET
                     age = p_age,
                     name = p_name,
+                    area = p_area,
                     date_register = p_date_register,
                     distrito_id = p_distrito_id,
                     gerente_id = p_gerente_id,

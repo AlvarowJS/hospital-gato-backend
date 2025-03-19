@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('age');
             $table->string('name');
+            $table->string('area');
             $table->date('date_register');
             $table->foreignId('distrito_id')->constrained('distritos');
             $table->foreignId('gerente_id')->constrained('gerentes');

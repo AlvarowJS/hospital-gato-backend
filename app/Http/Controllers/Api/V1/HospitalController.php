@@ -3,12 +3,33 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Condicion;
+use App\Models\Distrito;
+use App\Models\Gerente;
+use App\Models\Hospital;
+use App\Models\Sede;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class HospitalController extends Controller
 {
+    public function mostrarOpciones()
+    {
+        $dataHospital = Hospital::all();
+        $dataDistritos = Distrito::all();
+        $dataGerentes = Gerente::all();
+        $dataCondicions = Condicion::all();
+        $dataSedes = Sede::all();
+        return response()->json([
+            'hospitals' => $dataHospital,
+            'distritos' => $dataDistritos,
+            'gerentes' => $dataGerentes,
+            'condicions' => $dataCondicions,
+            'sedes' => $dataSedes,
+
+        ]);
+    }
     public function index()
     {
         $data = DB::select('CALL hospital_listar()');
@@ -23,6 +44,7 @@ class HospitalController extends Controller
         $validated = $request->validate([
             'age' => 'required|integer',
             'name' => 'required|string|max:255',
+            'area' => 'required|string|max:255',
             'date_register' => 'required|date',
             'distrito_id' => 'required|integer',
             'gerente_id' => 'required|integer',
@@ -32,9 +54,10 @@ class HospitalController extends Controller
 
         try {
             $now = now();
-            DB::statement('CALL hospital_registrar(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+            DB::statement('CALL hospital_registrar(?, ?, ?, ?, ?,?, ?, ?, ?, ?)', [
                 $validated['age'],
                 $validated['name'],
+                $validated['area'],
                 $validated['date_register'],
                 $validated['distrito_id'],
                 $validated['gerente_id'],
@@ -55,13 +78,18 @@ class HospitalController extends Controller
 
     public function show(string $id)
     {
-        //
+        $data = Hospital::find($id);
+        if (!$data) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+        return response()->json($data);
     }
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
             'age' => 'required|integer',
             'name' => 'required|string|max:255',
+            'area' => 'required|string|max:255',
             'date_register' => 'required|date',
             'distrito_id' => 'required|integer',
             'gerente_id' => 'required|integer',
@@ -70,10 +98,11 @@ class HospitalController extends Controller
         ]);
 
         try {
-            DB::statement('CALL hospital_actualizar(?, ?, ?, ?, ?, ?, ?, ?)', [
+            DB::statement('CALL hospital_actualizar(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                 $id,
                 $validated['age'],
                 $validated['name'],
+                $validated['area'],
                 $validated['date_register'],
                 $validated['distrito_id'],
                 $validated['gerente_id'],

@@ -19,4 +19,5 @@ use App\Http\Controllers\Api\V1\LoginController as Login;
 Route::post('/login',                      [Login::class, 'store']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/hospital',      Hospital::class);
+    Route::get('/opciones',      [Hospital::class, 'mostrarOpciones']);
 });

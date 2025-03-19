@@ -29,6 +29,7 @@ models:
   Hospital:
     age: number
     name: string
+    area: string
     date_register: date
     distrito_id: id
     gerente_id: id
