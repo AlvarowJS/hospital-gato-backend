@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,11 +23,13 @@ class StoredProceduresSeeder extends Seeder
                 IN p_distrito_id INT,
                 IN p_gerente_id INT,
                 IN p_condicion_id INT,
-                IN p_sede_id INT
+                IN p_sede_id INT,
+                IN p_created_at DATETIME,
+                IN p_updated_at DATETIME
             )
             BEGIN
-                INSERT INTO hospitals(age, name, date_register, distrito_id, gerente_id, condicion_id, sede_id)
-                VALUES (p_age, p_name, p_date_register, p_distrito_id, p_gerente_id, p_condicion_id, p_sede_id);
+                INSERT INTO hospitals(age, name, date_register, distrito_id, gerente_id, condicion_id, sede_id,created_at, updated_at)
+                VALUES (p_age, p_name, p_date_register, p_distrito_id, p_gerente_id, p_condicion_id, p_sede_id, p_created_at, p_updated_at);
             END;",
 
             "DROP PROCEDURE IF EXISTS hospital_actualizar;",
@@ -49,7 +52,8 @@ class StoredProceduresSeeder extends Seeder
                     distrito_id = p_distrito_id,
                     gerente_id = p_gerente_id,
                     condicion_id = p_condicion_id,
-                    sede_id = p_sede_id
+                    sede_id = p_sede_id,
+                    updated_at = NOW()
                 WHERE id = p_id;
             END;",
 
@@ -62,7 +66,11 @@ class StoredProceduresSeeder extends Seeder
             "DROP PROCEDURE IF EXISTS hospital_listar;",
             "CREATE PROCEDURE hospital_listar()
             BEGIN
-                SELECT * FROM hospitals;
+               SELECT ho.id, ho.name, ho.age, di.name, se.name, ge.name, co.name, ho.date_register FROM hospitals as ho join 
+                gerentes as ge on ho.gerente_id = ge.id join 
+                distritos as di on ho.distrito_id = di.id join
+                condicions as co on ho.condicion_id = co.id join
+                sedes as se on ho.sede_id = se.id;; 
             END;"
         ];
 
