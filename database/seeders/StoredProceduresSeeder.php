@@ -66,11 +66,11 @@ class StoredProceduresSeeder extends Seeder
             "DROP PROCEDURE IF EXISTS hospital_listar;",
             "CREATE PROCEDURE hospital_listar()
             BEGIN
-               SELECT ho.id, ho.name, ho.age, di.name, se.name, ge.name, co.name, ho.date_register FROM hospitals as ho join 
-                gerentes as ge on ho.gerente_id = ge.id join 
+               SELECT ho.id, ho.name, ho.age, di.name as distrito, se.name as sede, ge.name as gerente, co.name as condicion, ho.date_register FROM hospitals as ho join
+                gerentes as ge on ho.gerente_id = ge.id join
                 distritos as di on ho.distrito_id = di.id join
                 condicions as co on ho.condicion_id = co.id join
-                sedes as se on ho.sede_id = se.id;; 
+                sedes as se on ho.sede_id = se.id;
             END;"
         ];
 
